@@ -1,0 +1,5 @@
+[
+  { "name": "Orion", "ra": 83.8, "dec": -5.4, "info": "Orion is a prominent constellation, often called The Hunter." },
+  { "name": "Ursa Major", "ra": 165.5, "dec": 56.3, "info": "Ursa Major contains the Big Dipper asterism." },
+  { "name": "Cassiopeia", "ra": 10.5, "dec": 60.7, "info": "Cassiopeia is a W-shaped constellation in the northern sky." }
+]
