@@ -137,7 +137,7 @@ export default function Astrology() {
 
         </div>
 
-        {/* Zodiac Modal */}
+        {/* Zodiac Model */}
         {zodiac && (
           <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 overflow-auto p-4">
 

@@ -13,25 +13,21 @@ export default function APOD() {
   const [apod, setApod] = useState<ApodData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // <-- Added
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchApod = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/apod");
-        console.log("Response status:", response.status);
         if (!response.ok) throw new Error("Failed to fetch APOD");
         const data = await response.json();
-        console.log("Data:", data);
         setApod(data);
       } catch (err: any) {
-        console.error("Fetch error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
     fetchApod();
   }, []);
 
@@ -40,9 +36,9 @@ export default function APOD() {
   if (!apod) return null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0a0614] text-slate-100 px-6 py-16">
+    <div className="relative min-h-screen bg-[#0a0614] text-slate-100 px-6 py-16">
 
-      {/* 🌌 Background aura layers */}
+      {/* 🌌 Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#120a2a] via-[#090414] to-black" />
       <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/20 rounded-full blur-[160px]" />
       <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-fuchsia-600/20 rounded-full blur-[160px]" />
@@ -66,14 +62,14 @@ export default function APOD() {
         {/* Media Container */}
         <div className="rounded-3xl overflow-hidden backdrop-blur-2xl bg-white/5 border border-white/10 shadow-[0_0_60px_rgba(139,92,246,0.25)] mb-10">
           {apod.media_type === "image" ? (
-            <img src={apod.url} alt={apod.title} className="w-full object-cover" />
+            <img src={apod.url} alt={apod.title} className="w-full h-auto object-cover" />
           ) : (
-            <iframe title={apod.title} src={apod.url} className="w-full h-[500px]" />
+            <iframe title={apod.title} src={apod.url} className="w-full h-[400px] md:h-[500px]" />
           )}
         </div>
 
         {/* Explanation Card */}
-        <div className="p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-violet-400/10 shadow-[0_0_40px_rgba(192,132,252,0.15)]">
+        <div className="p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-violet-400/10 shadow-[0_0_40px_rgba(192,132,252,0.15)] max-h-[500px] overflow-y-auto">
           <p className="text-slate-300 leading-relaxed tracking-wide text-lg">{apod.explanation}</p>
           <div className="mt-8 h-[1px] w-32 bg-gradient-to-r from-transparent via-violet-400/60 to-transparent mx-auto" />
           <p className="text-center text-violet-300/80 mt-6 tracking-widest text-sm uppercase">{apod.date}</p>
