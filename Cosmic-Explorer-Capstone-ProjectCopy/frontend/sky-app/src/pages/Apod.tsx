@@ -21,6 +21,15 @@ export default function APOD() {
         const response = await fetch("http://localhost:5000/api/apod");
         if (!response.ok) throw new Error("Failed to fetch APOD");
         const data = await response.json();
+
+        // ✅ Fix: Ensure explanation starts with a capital letter
+        if (data.explanation && data.explanation.length > 0) {
+          const firstChar = data.explanation[0];
+          if (firstChar.match(/[a-zA-Z]/) && firstChar === firstChar.toLowerCase()) {
+            data.explanation = firstChar.toUpperCase() + data.explanation.slice(1);
+          }
+        }
+
         setApod(data);
       } catch (err: any) {
         console.error("Fetch error:", err);
@@ -40,7 +49,7 @@ export default function APOD() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0a0614] text-slate-100 px-6 py-16">
 
-      {/* Background aura layers */}
+      {/* 🌌 Background aura layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#120a2a] via-[#090414] to-black" />
       <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/20 rounded-full blur-[160px]" />
       <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-fuchsia-600/20 rounded-full blur-[160px]" />
@@ -72,10 +81,7 @@ export default function APOD() {
 
         {/* Explanation Card */}
         <div className="p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-violet-400/10 shadow-[0_0_40px_rgba(192,132,252,0.15)]">
-          {/* Full text will display now */}
-          <p className="text-slate-300 leading-relaxed tracking-wide text-lg whitespace-pre-line">
-            {apod.explanation}
-          </p>
+          <p className="text-slate-300 leading-relaxed tracking-wide text-lg">{apod.explanation}</p>
           <div className="mt-8 h-[1px] w-32 bg-gradient-to-r from-transparent via-violet-400/60 to-transparent mx-auto" />
           <p className="text-center text-violet-300/80 mt-6 tracking-widest text-sm uppercase">{apod.date}</p>
         </div>
