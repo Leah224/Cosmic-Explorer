@@ -6,11 +6,8 @@ dotenv.config();
 /* -------------------- DATABASE POOL -------------------- */
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT), // convert string to number
-  database: process.env.DB_NAME,
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }, // required for Supabase
 });
 
 /* -------------------- TEST CONNECTION -------------------- */
