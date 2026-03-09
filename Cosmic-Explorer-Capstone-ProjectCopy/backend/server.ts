@@ -13,7 +13,10 @@ import astrologyRoutes from "./routes/astrology";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://cosmic-explorer-frontend1-0.onrender.com", 
+  credentials: true,
+}));
 app.use(express.json());
 
 // ---------------- PostgreSQL Setup ----------------
