@@ -18,7 +18,7 @@ export default function APOD() {
   useEffect(() => {
     const fetchApod = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/apod");
+        const response = await fetch("https://cosmic-explorer-jegj.onrender.com/api/apod");
         if (!response.ok) throw new Error("Failed to fetch APOD");
         const data = await response.json();
 

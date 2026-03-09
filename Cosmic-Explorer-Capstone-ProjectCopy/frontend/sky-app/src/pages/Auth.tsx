@@ -12,8 +12,8 @@ export default function Auth() {
     e.preventDefault();
 
     const url = isSignup
-      ? "http://localhost:5000/api/auth/register"
-      : "http://localhost:5000/api/auth/login";
+      ? "https://cosmic-explorer-jegj.onrender.com/api/auth/register"
+      : "https://cosmic-explorer-jegj.onrender.com/api/auth/login";
 
     const body: any = isSignup
       ? { username, email, password }
