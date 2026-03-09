@@ -8,7 +8,8 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  // Hardcoded deployed backend URL
+  const BASE_URL = "https://cosmic-explorer-jegj.onrender.com/api";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
