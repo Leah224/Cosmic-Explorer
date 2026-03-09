@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { pool } from "../server"; // <- fixed import
+import pool from "../db"; 
 
 const router = express.Router();
 
@@ -42,11 +42,11 @@ router.post(
         user: result.rows[0],
       });
     } catch (err: any) {
-      console.error("Register error:", err); // log full error
       if (err.code === "23505") {
         return res.status(400).json({ error: "Email already exists" });
       }
 
+      console.error(err); // log actual error
       res.status(500).json({ error: "Server error" });
     }
   }
@@ -86,9 +86,9 @@ router.post(
         { expiresIn: "1h" }
       );
 
-      res.json({ token, user: { id: user.id, email: user.email } });
+      res.json({ token, user: { id: user.id, email: user.email, username: user.username } });
     } catch (err) {
-      console.error("Login error:", err); // log full error
+      console.error(err); // log actual error
       res.status(500).json({ error: "Server error" });
     }
   }
