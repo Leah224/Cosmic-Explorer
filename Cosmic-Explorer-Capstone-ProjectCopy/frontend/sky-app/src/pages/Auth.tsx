@@ -8,12 +8,14 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const url = isSignup
-      ? "https://cosmic-explorer-jegj.onrender.com/api/auth/register"
-      : "https://cosmic-explorer-jegj.onrender.com/api/auth/login";
+      ? `${BASE_URL}/auth/register`
+      : `${BASE_URL}/auth/login`;
 
     const body: any = isSignup
       ? { username, email, password }
@@ -34,13 +36,18 @@ export default function Auth() {
       }
 
       if (!isSignup) {
+        // Store token for API requests
         localStorage.setItem("token", data.token);
+        // Optional: store user info if backend sends it
+        if (data.user) localStorage.setItem("user", JSON.stringify(data.user));
+
         alert("Login successful!");
       } else {
         alert("Signup successful! You can now log in.");
         setIsSignup(false);
       }
 
+      // Redirect after success
       navigate("/home");
     } catch (err) {
       console.error(err);
@@ -59,7 +66,6 @@ export default function Auth() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.6))]" />
 
       <div className="relative z-10 w-full max-w-md p-8 rounded-3xl bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl">
-
         <h1 className="text-3xl font-extralight text-center mb-8 -mt-1 leading-normal bg-gradient-to-r from-violet-200 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(192,132,252,0.6)]">
           {isSignup ? "Create Account" : "Login"}
         </h1>
