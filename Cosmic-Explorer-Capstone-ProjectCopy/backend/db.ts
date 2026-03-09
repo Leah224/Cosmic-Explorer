@@ -6,8 +6,8 @@ dotenv.config();
 /* -------------------- DATABASE POOL -------------------- */
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }, // required for Supabase
+  connectionString: process.env.DATABASE_URL, // use the full DATABASE_URL from Render
+  ssl: { rejectUnauthorized: false }          // required for Supabase
 });
 
 /* -------------------- TEST CONNECTION -------------------- */
