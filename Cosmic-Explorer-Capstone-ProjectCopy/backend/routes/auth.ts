@@ -28,12 +28,17 @@ router.post("/register", async (req: Request, res: Response) => {
       user: result.rows[0]
     });
   } catch (err: any) {
-    if (err.code === "23505") {
-      return res.status(400).json({ error: "Email already exists" });
-    }
-    console.error("Register error:", err);
-    res.status(500).json({ error: "Server error" });
+  if (err.code === "23505") {
+    return res.status(400).json({ error: "Email already exists" });
   }
+
+  console.error("Register error:", err);
+
+  res.status(500).json({
+    error: "Server error",
+    details: err.message
+  });
+}
 });
 
 /* -------------------- LOGIN -------------------- */
