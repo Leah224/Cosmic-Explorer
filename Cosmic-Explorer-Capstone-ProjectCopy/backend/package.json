@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.0",
     "astronomy-engine": "^2.1.19",
     "axios": "^1.13.5",
     "bcryptjs": "^3.0.3",
