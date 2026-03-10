@@ -104,7 +104,7 @@ Authentication: JWT
 
 API Integration: NASA APIs (for celestial data)
 
-# Important note!!
+# Important Notes
 The star map works and responds to real user input
 
 Users enter latitude, longitude, and datetime.
@@ -113,7 +113,7 @@ The app calculates which celestial bodies are above the horizon.
 
 It displays planets, the Sun, Moon, and Polaris, along with altitude and azimuth.
 
-# Accuracy caveats!!
+# Accuracy Caveats!!
 
 Very faint planets (Uranus, Neptune) may not be visible to the naked eye.
 
