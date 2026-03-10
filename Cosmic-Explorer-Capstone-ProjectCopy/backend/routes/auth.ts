@@ -1,12 +1,11 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import pool from "../db"; // make sure this still points to your db.ts
+import pool from "../db"; // your existing db connection
 
 const router = express.Router();
 
 /* -------------------- TYPES -------------------- */
-
 interface RegisterBody {
   username: string;
   email: string;
@@ -19,7 +18,6 @@ interface LoginBody {
 }
 
 /* -------------------- REGISTER -------------------- */
-
 router.post(
   "/register",
   async (req: Request<{}, {}, RegisterBody>, res: Response) => {
@@ -32,9 +30,8 @@ router.post(
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // 🔑 Updated to include the auth schema
       const result = await pool.query(
-        "INSERT INTO auth.users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING id, email, username",
+        "INSERT INTO auth.users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING id, email",
         [username, email, hashedPassword]
       );
 
@@ -43,25 +40,23 @@ router.post(
         user: result.rows[0],
       });
     } catch (err: any) {
-      if (err.code === "23505") {
-        return res.status(400).json({ error: "Email already exists" });
-      }
-
-      console.error("Register error:", err); // will show actual error
-      res.status(500).json({ error: "Server error" });
+      console.error("Register error:", err); // logs in Render
+      res.status(500).json({
+        error: "Server error",
+        message: err.message,   // full error message
+        stack: err.stack       // stack trace
+      });
     }
   }
 );
 
 /* -------------------- LOGIN -------------------- */
-
 router.post(
   "/login",
   async (req: Request<{}, {}, LoginBody>, res: Response) => {
     const { email, password } = req.body;
 
     try {
-      // 🔑 Updated to include the auth schema
       const result = await pool.query(
         "SELECT * FROM auth.users WHERE email = $1",
         [email]
@@ -88,13 +83,14 @@ router.post(
         { expiresIn: "1h" }
       );
 
-      res.json({
-        token,
-        user: { id: user.id, email: user.email, username: user.username },
+      res.json({ token, user: { id: user.id, email: user.email, username: user.username } });
+    } catch (err: any) {
+      console.error("Login error:", err);
+      res.status(500).json({
+        error: "Server error",
+        message: err.message,
+        stack: err.stack
       });
-    } catch (err) {
-      console.error("Login error:", err); // will show actual error
-      res.status(500).json({ error: "Server error" });
     }
   }
 );
