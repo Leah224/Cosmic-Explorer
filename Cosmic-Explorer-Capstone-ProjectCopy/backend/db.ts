@@ -8,8 +8,9 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-pool.query("SELECT NOW()")
-  .then(res => console.log("Database connected at:", res.rows[0]))
-  .catch(err => console.error("Database connection error:", err));
+// Force PostgreSQL to use the "auth" schema by default
+pool.query('SET search_path TO auth;')
+  .then(() => console.log('Search path set to auth ✅'))
+  .catch(err => console.error('Error setting search path:', err));
 
 export default pool;
