@@ -5,12 +5,11 @@ dotenv.config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  ssl: { rejectUnauthorized: false },
 });
 
-/* -------------------- TEST CONNECTION -------------------- */
 pool.query("SELECT NOW()")
   .then(res => console.log("Database connected at:", res.rows[0]))
   .catch(err => console.error("Database connection error:", err));
 
-export default pool; // export default for routes
+export default pool;
