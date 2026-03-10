@@ -2,6 +2,10 @@
 
 Cosmic Explorer is an interactive web application that allows users to explore the night sky, learn about celestial bodies, track zodiac signs, and save their favorite stars and signs. Built with React, TypeScript, Tailwind CSS, and a Node.js/Express backend, it features a smooth cosmic aesthetic with interactive models.
 
+
+# Link 
+https://cosmic-explorer-frontend1-0.onrender.com
+
 # Features
 # Oberservatory
 
