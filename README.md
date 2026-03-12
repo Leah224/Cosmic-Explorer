@@ -50,7 +50,7 @@ Stores JWT token in local storage after successful login.
 
 Clone the repository:
 
-git clone https://github.com/yourusername/cosmic-explorer.git
+git clone
 cd cosmic-explorer
 
 Install backend dependencies:
