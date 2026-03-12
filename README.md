@@ -2,6 +2,10 @@
 
 Cosmic Explorer is an interactive web application that allows users to explore the night sky, learn about celestial bodies, track zodiac signs, and save their favorite stars and signs. Built with React, TypeScript, Tailwind CSS, and a Node.js/Express backend, it features a smooth cosmic aesthetic with interactive models.
 
+
+# Link 
+https://cosmic-explorer-frontend1-0.onrender.com
+
 # Features
 # Oberservatory
 
@@ -46,7 +50,7 @@ Stores JWT token in local storage after successful login.
 
 Clone the repository:
 
-git clone https://github.com/yourusername/cosmic-explorer.git
+git clone
 cd cosmic-explorer
 
 Install backend dependencies:
@@ -99,3 +103,14 @@ Backend: Node.js, Express, PostgreSQL
 Authentication: JWT
 
 API Integration: NASA APIs (for celestial data)
+
+# Important to Note:
+# Accuracy Caveats!!
+
+Very faint planets (Uranus, Neptune) may not be visible to the naked eye.
+
+Moon visibility depends on its rise/set and phase — sometimes it may not appear.
+
+Early morning or evening hours may have slight differences due to atmospheric refraction or local horizon.
+
+Polaris is fixed, as expected.
